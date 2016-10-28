@@ -1,0 +1,72 @@
+create table User(
+    id_user bigint not null primary key generated always as identity (start with 1, increment by 1),
+    username varchar(30) not null,
+    password varchar(16) not null,
+    fk_type bigint not null,  
+);
+
+create table UserInfo(
+    id_userinfo bigint not null primary key,
+    firstname varchar(50) not null,
+    lastname varchar(50) not null,
+    gender char(1) not null,
+    email varchar(75) not null,
+    birthday date not null,
+    photo blob
+);
+
+create table UserType(
+    id_usertype bigint not null primary key,
+    type_name varchar(50) not null
+);
+
+create table Discussion(
+    id_discussion bigint not null primary key generated always as identity (start with 1, increment by 1),
+    name varchar(100) not null,
+    discussiondate timestamp not null,
+    fk_user bigint not null
+);
+
+create table Argument(
+    id_argument bigint not null primary key generated always as identity (start with 1, increment by 1),
+    text varchar(500) not null,
+    argumentdate timestamp not null,
+    fk_user bigint not null,
+    fk_discussion bigint not null
+);
+
+-- relacionamentos
+-- 1 para 1, loga primária com primária
+alter table UserInfo
+add foreign key(id_userinfo)
+references User(id_user)
+on delete cascade;
+
+-- "on delete cascade", quando apaga o registro em uma tabela, apaga o registro na outra também
+
+-- 1 para muitos, liga primária com outro campo
+alter table post
+add foreign key(fk_user)
+references User(id_user)
+on delete cascade;
+
+-- 1 para muitos, liga primária com outro campo
+alter table Discussion
+add foreign key(fk_user)
+references User(id_user)
+on delete cascade;
+
+alter table User
+add foreign key(fk_type)
+references UserType(id_usertype);
+
+-- muitos para muitos, cria uma tabela de ligação
+alter table comment
+add foreign key(fk_userlp2)
+references userlp2(id_userlp2)
+on delete cascade;
+
+alter table comment
+add foreign key(fk_post)
+references post(id_post)
+on delete cascade;
