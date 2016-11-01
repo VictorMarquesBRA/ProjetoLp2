@@ -22,18 +22,19 @@ import java.util.logging.Logger;
  */
 public class UserDAO implements GenericDAO<User> {
 
+    //Passo 1 - estabelecer conexão
+    private final Connection connection = SingletonConnection.getInstance().getConnection();
+    
     @Override
     public boolean insert(User e) {
         boolean result = false;
-        //Passo 1 - estabelecer a conexão
-        Connection connection = SingletonConnection.getInstance().getConnection();
-
+        
         //Passo 2 - criar o statement
-        String sql = "INSERT INTO user() VALUES(?, ?)";
+        String sql = "INSERT INTO userlp2(username,password) VALUES(?, ?)";
         try {
             PreparedStatement pst = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            //pst.setString(1, e.getAlgumaCoisa());
-            //pst.setString(2, e.getAlgumaCoisa());
+            //pst.setString(1, e.getUsername());
+            //pst.setString(2, e.getPassword());
 
             //Passo 3 - executar a consulta
             int rows = pst.executeUpdate();
@@ -45,14 +46,14 @@ public class UserDAO implements GenericDAO<User> {
                 if(rs.next()) key = rs.getLong(1);
                 
                 //Passo 2b
-                String sql2 = "INSERT INTO userinfo VALUES(?, ?, ?, ?, ?, ?)";
+                String sql2 = "INSERT INTO userinfo(firstname, lastname, email, birthday) VALUES(?, ?, ?, ?, ?, ?)";
                 PreparedStatement pst2 = connection.prepareStatement(sql2);
                 pst2.setLong(1, key);
-                //pst2.setString(2, e.getAlgumaCoisa().getAlgumaCoisa2());
-                //pst2.setString(3, e.getAlgumaCoisa().getAlgumaCoisa2());
-                //pst2.setString(4, e.getAlgumaCoisa().getAlgumaCoisa2());
-                //pst2.setDate(5, new java.sql.Date(e.getAlgumaCoisa().getAlgumaCoisa2().getAlgumaCoisa3));
-                //pst2.setBytes(6, e.getAlgumaCoisa().getAlgumaCoisa2());//foto
+                //pst2.setString(2, e.getUserinfo().getFirstname());
+                //pst2.setString(3, e.getUserinfo().getLastname());
+                //pst2.setString(4, e.getUserinfo().getEmail());
+                //pst2.setDate(5, new java.sql.Date(e.getUserinfo().getBirthday().getTime() ) );
+                //pst2.setBytes(6, e.getUserinfo().getAlgumaCoisa2());//foto
                 result = true;
                 
             }
@@ -72,9 +73,16 @@ public class UserDAO implements GenericDAO<User> {
     public List<User> findAll(User e) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         //Passo 1 - estabelecer a conexão
+        
         //Passo 2 - criar o statement
+        
+
         //Passo 3 - executar a consulta
+
+        
         //Passo 4 - tratar os resultados
+
+        
         //Passo 5 - fechar o statement/conexão
     }
 
