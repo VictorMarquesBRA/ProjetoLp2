@@ -1,9 +1,9 @@
-create table User(
+create table UserLp2(
     id_user bigint not null primary key generated always as identity (start with 1, increment by 1),
     username varchar(30) not null,
     password varchar(16) not null,
     fk_userinfo bigint not null,  
-    fk_type bigint not null,  
+    fk_type bigint not null  
 );
 
 create table UserInfo(
@@ -45,25 +45,35 @@ create table UserDiscussion(
 
 alter table Argument
 add foreign key(fk_user)
-references User(id_user),
+references UserLp2(id_user)
+;
+
+alter table Argument
 add foreign key(fk_discussion)
-references Discussion(id_discussion),
+references Discussion(id_discussion)
 ;
 
 alter table Discussion
 add foreign key(fk_user)
-references User(id_user);
+references UserLp2(id_user)
+;
 
-alter table User
+alter table UserLp2
 add foreign key(fk_type)
-references UserType(id_usertype),
+references UserType(id_usertype)
+;
+
+alter table UserLp2
 add foreign key(fk_userinfo)
 references UserInfo(id_userinfo),
 ;
 
 alter table UserDiscussion
 add foreign key(fk_user)
-references User(id_user),
+references UserLp2(id_user)
+;
+
+alter table UserDiscussion
 add foreign key(fk_discussion)
 references Discussion(id_discussion)
 ;
