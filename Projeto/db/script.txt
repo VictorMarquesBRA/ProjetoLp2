@@ -65,7 +65,7 @@ references UserType(id_usertype)
 
 alter table UserLp2
 add foreign key(fk_userinfo)
-references UserInfo(id_userinfo),
+references UserInfo(id_userinfo)
 ;
 
 alter table UserDiscussion
