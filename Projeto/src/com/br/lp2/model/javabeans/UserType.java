@@ -5,11 +5,13 @@
  */
 package com.br.lp2.model.javabeans;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Killerman
  */
-public class UserType {
+public class UserType implements Serializable {
     private Long idUserType;
     private String typename;
 

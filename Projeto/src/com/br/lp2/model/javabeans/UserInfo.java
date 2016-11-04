@@ -5,13 +5,14 @@
  */
 package com.br.lp2.model.javabeans;
 
+import java.io.Serializable;
 import java.sql.Date;
 
 /**
  *
  * @author 31507239
  */
-public class UserInfo {
+public class UserInfo implements Serializable {
     private Long idUserinfo;
     private String firstname;
     private String lastname;
