@@ -6,7 +6,7 @@
 package com.br.lp2.model.dao;
 
 import com.br.lp2.model.connection.SingletonConnection;
-import com.br.lp2.model.javabeans.User;
+import com.br.lp2.model.javabeans.UserLp2;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -20,13 +20,13 @@ import java.util.logging.Logger;
  *
  * @author 31507239
  */
-public class UserDAO implements GenericDAO<User> {
+public class UserDAO implements GenericDAO<UserLp2> {
 
     //Passo 1 - estabelecer conexão
     private final Connection connection = SingletonConnection.getInstance().getConnection();
     
     @Override
-    public boolean insert(User e) {
+    public boolean insert(UserLp2 e) {
         boolean result = false;
         
         //Passo 2 - criar o statement
@@ -70,7 +70,7 @@ public class UserDAO implements GenericDAO<User> {
     }
 
     @Override
-    public List<User> findAll(User e) {
+    public List<UserLp2> findAll(UserLp2 e) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         //Passo 1 - estabelecer a conexão
         
@@ -87,17 +87,17 @@ public class UserDAO implements GenericDAO<User> {
     }
 
     @Override
-    public List<User> findById(User e) {
+    public List<UserLp2> findById(UserLp2 e) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public boolean modify(User e) {
+    public boolean modify(UserLp2 e) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public boolean remove(User e) {
+    public boolean remove(UserLp2 e) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
