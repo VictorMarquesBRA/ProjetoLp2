@@ -46,15 +46,23 @@ public class UserDAO implements GenericDAO<UserLp2> {
                 if(rs.next()) key = rs.getLong(1);
                 
                 //Passo 2b
-                String sql2 = "INSERT INTO userinfo(firstname, lastname, email, birthday) VALUES(?, ?, ?, ?, ?, ?)";
+                String sql2 = "INSERT INTO userinfo(firstname, lastname, email, birthday, gender, photo) VALUES(?, ?, ?, ?, ?, ?)";
                 PreparedStatement pst2 = connection.prepareStatement(sql2);
                 pst2.setLong(1, key);
-                //pst2.setString(2, e.getUserinfo().getFirstname());
-                //pst2.setString(3, e.getUserinfo().getLastname());
-                //pst2.setString(4, e.getUserinfo().getEmail());
-                //pst2.setDate(5, new java.sql.Date(e.getUserinfo().getBirthday().getTime() ) );
-                //pst2.setBytes(6, e.getUserinfo().getAlgumaCoisa2());//foto
-                result = true;
+                pst2.setString(2, e.getUserinfo().getFirstname());
+                pst2.setString(3, e.getUserinfo().getLastname());
+                pst2.setString(4, e.getUserinfo().getEmail());
+                pst2.setDate(5, new java.sql.Date(e.getUserinfo().getBirthday().getTime() ) );
+                pst2.setString(6, String.valueOf(e.getUserinfo().getGender()));
+                pst2.setBytes(7, e.getUserinfo().getPhoto());//foto
+                
+                int rows2 = pst2.executeUpdate();
+                
+                if (rows2>0) {
+                    result = true;
+                }
+                
+                pst2.close();
                 
             }
             
