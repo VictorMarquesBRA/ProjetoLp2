@@ -175,7 +175,7 @@ public class UserLp2DAO implements GenericDAO<UserLp2> {
             PreparedStatement pst = connection.prepareStatement(sql);
             pst.setString(1, e.getUsername());
             pst.setString(2, e.getPassword());
-            pst.setLong(3, e.getIdUserLp2());
+            pst.setLong(3, e.getIdUser());
             
             //Passo 3
             int rows = pst.executeUpdate();
