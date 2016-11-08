@@ -18,6 +18,7 @@ public class Discussion implements Serializable{
     private String name;
     private Date discussionDate;
     private UserLp2 user;
+    
 
     public Discussion() {
         
