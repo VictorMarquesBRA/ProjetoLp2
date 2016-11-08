@@ -14,16 +14,16 @@ import java.io.Serializable;
 public class UserDiscussion implements Serializable{
     
     private Long idUserDis;
-    private Long User user;
-    private Long Discussion discussion;
+    private UserLp2 user;
+    private Discussion discussion;    
 
     public UserDiscussion() {
     }
-
-    public UserDiscussion(Long idUserDis, Long User, Long Discussion) {
+    
+    public UserDiscussion(Long idUserDis, UserLp2 user, Discussion discussion) {
         this.idUserDis = idUserDis;
-        this.User = User;
-        this.Discussion = Discussion;
+        this.user = user;
+        this.discussion = discussion;
     }
 
     public Long getIdUserDis() {
@@ -34,23 +34,20 @@ public class UserDiscussion implements Serializable{
         this.idUserDis = idUserDis;
     }
 
-    public Long getUser() {
-        return User;
+    public UserLp2 getUser() {
+        return user;
     }
 
-    public void setUser(Long User) {
-        this.User = User;
+    public void setUser(UserLp2 user) {
+        this.user = user;
     }
 
-    public Long getDiscussion() {
-        return Discussion;
+    public Discussion getDiscussion() {
+        return discussion;
     }
 
-    public void setDiscussion(Long Discussion) {
-        this.Discussion = Discussion;
+    public void setDiscussion(Discussion discussion) {
+        this.discussion = discussion;
     }
-    
-    
-    
     
 }
