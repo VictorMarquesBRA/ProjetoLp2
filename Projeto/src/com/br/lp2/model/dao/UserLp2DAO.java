@@ -144,6 +144,7 @@ public class UserLp2DAO implements GenericDAO<UserLp2> {
                 ui.setLastname( rs.getString("lastname") );
                 ui.setEmail( rs.getString("email") );
                 ui.setPhoto(null);
+                ui.setGender(rs.getString("gender").charAt(0));
                 ui.setBirthday(  new java.util.Date( rs.getDate("birthday").getTime() )  );
                 
                 u = new UserLp2();
@@ -166,12 +167,79 @@ public class UserLp2DAO implements GenericDAO<UserLp2> {
 
     @Override
     public boolean modify(UserLp2 e) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        boolean result = false;
+        // Passo 2
+        String sql = "UPDATE userlp2 SET username=?, password=? "
+                + "WHERE id_user=?";
+        try {
+            PreparedStatement pst = connection.prepareStatement(sql);
+            pst.setString(1, e.getUsername());
+            pst.setString(2, e.getPassword());
+            pst.setLong(3, e.getIdUser());
+            
+            //Passo 3
+            int rows = pst.executeUpdate();
+            
+            //Passo 4
+            if(rows>0){
+                //Passo 2b
+                String sqlb = "UPDATE userinfo SET firstname=?, lastname=?, "
+                        + "email=?, birthday=?, gender=?, photo=null "
+                        + "WHERE id_userinfo=?";
+                PreparedStatement pstb = connection.prepareStatement(sqlb);
+                pstb.setString(1, e.getUserinfo().getFirstname());
+                pstb.setString(2, e.getUserinfo().getLastname());
+                pstb.setString(3, e.getUserinfo().getEmail());
+                pstb.setDate(4, new java.sql.Date( e.getUserinfo().getBirthday().getTime() ) );
+                pstb.setString(6, String.valueOf(e.getUserinfo().getGender()));
+                pstb.setLong(6, e.getUserinfo().getIdUserinfo());
+                
+                //Passo 3b
+                int rowsb = pstb.executeUpdate();
+                
+                //Passo 4b
+                if(rowsb > 0) result = true;
+                
+                //Passo 5b
+                pstb.close();
+            }
+            
+            //Passo 5
+            pst.close();
+            
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(UserLp2DAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return result;
     }
 
     @Override
     public boolean remove(UserLp2 e) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    boolean result = false;
+        
+        //Passo 2
+        String sql = "DELETE FROM userlp2 WHERE id_user=?";
+        try {
+            PreparedStatement pst = connection.prepareStatement(sql);
+            pst.setLong(1, e.getIdUser());
+            
+            //Passo 3
+            int rows = pst.executeUpdate();
+            
+            //Passo 4
+            if(rows > 0) result = true;
+            
+            //Passo 5
+            pst.close();
+            
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        
+        
+        return result;
     }
 
 }
