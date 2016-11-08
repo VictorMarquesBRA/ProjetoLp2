@@ -6,7 +6,7 @@
 package com.br.lp2.model.javabeans;
 
 import java.io.Serializable;
-import java.sql.Date;
+import java.util.Date;
 
 /**
  *

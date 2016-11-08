@@ -100,13 +100,13 @@ public class UserLp2DAO implements GenericDAO<UserLp2> {
                 ui.setLastname(  rs.getString("lastname")  );
                 ui.setEmail(  rs.getString("email")  );
                 ui.setBirthday(new java.util.Date(rs.getDate("birthday").getTime())  );
-                ui.setGender(rs.getString("gender"));
+                ui.setGender(rs.getString("gender").charAt(0));
                 ui.setPhoto(rs.getBytes("photo"));
                 
-                Userlp2 u = new Userlp2();
+                UserLp2 u = new UserLp2();
                 u.setUsername(  rs.getString("username")  );
                 u.setPassword(  rs.getString("password")  );
-                u.setId_userlp2( rs.getLong("id_userlp2"));
+                u.setIdUser( rs.getLong("id_user"));
                 u.setUserinfo(ui);
                 
                 users.add(u);
@@ -116,15 +116,52 @@ public class UserLp2DAO implements GenericDAO<UserLp2> {
             st.close();
             
         } catch (SQLException ex) {
-            Logger.getLogger(Userlp2DAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(UserLp2DAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         
         return users;
     }
 
     @Override
-    public List<UserLp2> findById(UserLp2 e) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public UserLp2 findById(long id) {
+        UserLp2 u = null;
+        
+        //Passo2
+        String sql = "SELECT * FROM userlp2 INNER JOIN userinfo "
+                + "ON id_user = id_userinfo WHERE id_user=?";
+        try {
+            PreparedStatement pst = connection.prepareStatement(sql);
+            pst.setLong(1, id);
+            
+            //Passo 3
+            ResultSet rs = pst.executeQuery();
+            
+            //Passo 4
+            while(rs!=null && rs.next()){
+                UserInfo ui = new UserInfo();
+                ui.setIdUserinfo( rs.getLong("id_userinfo"));
+                ui.setFirstname(  rs.getString("firstname")  );
+                ui.setLastname( rs.getString("lastname") );
+                ui.setEmail( rs.getString("email") );
+                ui.setPhoto(null);
+                ui.setBirthday(  new java.util.Date( rs.getDate("birthday").getTime() )  );
+                
+                u = new UserLp2();
+                u.setIdUser( rs.getLong("id_user") );
+                u.setUsername( rs.getString("username") );
+                u.setPassword( rs.getString("password") );
+                u.setUserinfo(ui);
+            }
+            
+            //Passo 5
+            pst.close();
+            
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(UserLp2DAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return u;
     }
 
     @Override

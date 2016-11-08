@@ -18,6 +18,9 @@ public class UserLp2 implements Serializable {
     private UserInfo userinfo;
     private UserType usertype;
 
+    public UserLp2() {
+    }
+    
     public UserLp2(Long idUser, String username, String password, UserInfo userinfo, UserType usertype) {
         this.idUser = idUser;
         this.username = username;
@@ -26,9 +29,6 @@ public class UserLp2 implements Serializable {
         this.usertype = usertype;
     }
 
-    public UserLp2(String username, String password) {
-    }
-    
     public String getUsername() {
         return username;
     }
@@ -57,6 +57,16 @@ public class UserLp2 implements Serializable {
         return usertype;
     }
 
+    public Long getIdUser() {
+        return idUser;
+    }
+
+    public void setIdUser(Long idUser) {
+        this.idUser = idUser;
+    }
+
+    
+    
     public void setUsertype(UserType usertype) {
         this.usertype = usertype;
     }

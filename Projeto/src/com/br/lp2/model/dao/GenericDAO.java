@@ -5,6 +5,7 @@
  */
 package com.br.lp2.model.dao;
 
+import com.br.lp2.model.javabeans.UserLp2;
 import java.util.List;
 
 /**
@@ -16,7 +17,7 @@ public interface GenericDAO<E> {
     public boolean insert(E e); //C - CREATE
     
     public List<E> findAll(E e); //R - READ
-    public List<E> findById(E e); //R - READ
+    public UserLp2 findById(long id); //R - READ
     
     public boolean modify(E e); //U - UPDATE
     
