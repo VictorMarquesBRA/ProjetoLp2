@@ -5,6 +5,7 @@
  */
 package com.br.lp2.model.dao;
 
+import com.br.lp2.model.javabeans.Argument;
 import java.util.List;
 
 /**
